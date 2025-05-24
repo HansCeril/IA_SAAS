@@ -3,7 +3,6 @@ import { Source_Sans_3 as FontSans } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/common/Header";
 import Footer from "@/components/common/Footer";
-import { AuroraBackground } from "@/components/common/AuroraBackground";
 
 const fontSans = FontSans({
   variable: "--font-sans",
@@ -24,13 +23,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${fontSans.variable} font-sans antialiased`}>
-        <AuroraBackground>
-          <div className="relative flex min-h-screen flex-col">
-            <Header />
-            <main className="flex-1">{children}</main>
-            <Footer />
-          </div>
-        </AuroraBackground>
+        <div className="relative flex min-h-screen flex-col">
+          <Header />
+
+          <main className="flex-1">{children}</main>
+
+          <Footer />
+        </div>
       </body>
     </html>
   );
