@@ -10,10 +10,9 @@ export default function Home() {
       <div className="flex flex-col">
         <HeroSection />
         <HowItWorkSection />
+        <PricingSection />
+        <CTASection />
       </div>
-      {/* <HowItWorkSection />
-      <PricingSection />
-      <CTASection /> */}
     </div>
   );
 }

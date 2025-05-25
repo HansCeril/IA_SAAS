@@ -27,10 +27,10 @@ const steps: STEPS[] = [
 
 const HowItWorkSection = () => {
   return (
-    <section className="relative flex flex-col">
+    <section className="relative flex flex-col" id="howitwork">
       <div className="py-12 lg:py-24 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 lg:pt-12">
         <div className="text-center mb-16">
-          <h2 className="font-bold text-xl uppercase mb-4 text-fuchsia-600">
+          <h2 className="font-bold text-xl uppercase mb-4 text-blue-500">
             {" "}
             How it works
           </h2>
@@ -40,7 +40,7 @@ const HowItWorkSection = () => {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto relative">
           {steps.map((step, idx) => (
-            <div className="relative flex items-stretch">
+            <div key={idx} className="relative flex items-stretch">
               <StepItem key={idx} {...step} />
               {idx < steps.length - 1 && (
                 <div className="hidden md:block absolute top-1/2 -right-4 transform -translate-y-1/2 z-10">
