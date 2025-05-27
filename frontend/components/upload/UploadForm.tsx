@@ -3,11 +3,15 @@
 import React from "react";
 import UploadFormInput from "./UploadFormInput";
 import { z } from "zod";
-import { file, string } from "zod/v4";
+import { file, string, success } from "zod/v4";
 import { UploadButton } from "@/utils/uploadthing";
 import { toast } from "sonner";
 import { Toaster } from "../ui/sonner";
-import { generatedPdfSummary } from "@/actions/upload-actions";
+import {
+  generatedPdfSummary,
+  storePdfSummaryAction,
+} from "@/actions/upload-actions";
+import { useRouter } from "next/navigation";
 
 const UploadForm = () => {
   return (
@@ -30,8 +34,22 @@ const UploadForm = () => {
           console.log(JSON.parse(JSON.stringify(res_final)));
 
           const resume = await generatedPdfSummary([res_final]);
+
+          console.log("=======================================");
           console.log(resume);
+
+          const { data = null, message = null } = resume || {};
           alert("Upload Completed");
+
+          let storeResults: any;
+          if (data?.summary) {
+            storeResults = await storePdfSummaryAction({
+              fileUrl: res_final.serverData.file.url,
+              summary: data.summary,
+              title: data.title,
+              filename: res_final.serverData.file.name,
+            });
+          }
         }}
         onUploadError={(error: Error) => {
           // Do something with the error.
