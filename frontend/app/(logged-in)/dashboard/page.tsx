@@ -1,3 +1,4 @@
+import EmptySummaries from "@/components/summaries/EmptySummaries";
 import SummaryCard from "@/components/summaries/SummaryCard";
 import { Button } from "@/components/ui/button";
 import { getSummaries } from "@/lib/summaries";
@@ -15,6 +16,7 @@ const page = async () => {
 
   const userId = user?.id;
   const summaries = await getSummaries(userId);
+  console.log(summaries);
   return (
     <main className="min-h-screen">
       <div className="container mx-auto flex flex-col gapt4">
@@ -61,14 +63,19 @@ const page = async () => {
               </p>
             </div>
           </div>
-          <div
-            className="grid grid-cols-1 gap-4 sm:gap-6 md:grid-cols-2 
+
+          {summaries.length === 0 ? (
+            <EmptySummaries />
+          ) : (
+            <div
+              className="grid grid-cols-1 gap-4 sm:gap-6 md:grid-cols-2 
             lg:grid-cols-3 sm:px-0"
-          >
-            {summaries.map((summary, index) => (
-              <SummaryCard key={index} summary={summary} />
-            ))}
-          </div>
+            >
+              {summaries.map((summary, index) => (
+                <SummaryCard key={index} summary={summary} />
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </main>

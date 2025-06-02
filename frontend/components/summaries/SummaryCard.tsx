@@ -4,6 +4,7 @@ import DeleteButton from "./DeleteButton";
 import Link from "next/link";
 import { FileTextIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { formatDistanceToNow } from "date-fns";
 
 const SummaryHeader = ({
   fileUrl,
@@ -25,11 +26,12 @@ const SummaryHeader = ({
           {title}
         </h3>
         <p className="text-sm text-gray-500">
-          {new Date(createdAt).toLocaleDateString("fr-FR", {
+          {formatDistanceToNow(new Date(createdAt), { addSuffix: true })}
+          {/* {new Date(createdAt).toLocaleDateString("fr-FR", {
             year: "numeric",
             month: "long",
             day: "numeric",
-          })}
+          })} */}
         </p>
       </div>
     </div>
@@ -56,9 +58,9 @@ const SummaryCard = ({ summary }: any) => {
     <div>
       <Card className="relative h-full">
         <div className="absolute top-2 right-2">
-          <DeleteButton />
+          <DeleteButton summaryId={summary.id} />
         </div>
-        <Link href={`{summaries/${summary.id}}`} className="block p-4 sm:p-6">
+        <Link href={`summaries/${summary.id}`} className="block p-4 sm:p-6">
           <div className="flex flex-col gap-3 sm:gap-4">
             <SummaryHeader
               fileUrl={summary.file_url}
@@ -66,7 +68,7 @@ const SummaryCard = ({ summary }: any) => {
               createdAt={summary.created_at}
             />
             <p className="text-gray-600 line-clamp-2 text-sm sm:text-base pl-2">
-              {summary.description}
+              {summary.summary_text}
             </p>
 
             <div className="flex justify-between items-center mt-2 sm:mt-4">
